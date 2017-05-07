@@ -1,0 +1,4 @@
+Int variable definition at Line 1, Position: 0
+Int variable definition at Line 4, Position: 2
+Int variable definition at Line 5, Position: 1
+Analysis Ends.
