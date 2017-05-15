@@ -8,4 +8,6 @@ char ha = 'c';
 aaa = 2+9;
 
 ef = aaa+9;
- 
+int AddFunc(){
+    bb42b = false;
+ }

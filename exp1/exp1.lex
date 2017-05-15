@@ -16,10 +16,15 @@
 
 [0-9] {printf("IntVar %s ",yytext);}
 "\'"[a-zA-Z0-9]{1}"\'" {printf("CharVar: %s ",yytext);}
+"true" {printf("BoolVar: true ");}
+"false" {printf("BoolVar: false ");}
 
 " " {chars++;}
 ";\n" {printf("\n");}
 ";"  {printf("\n");}
+
+"{" {printf("\n<Func start>\n");}
+"}" {printf("\n<Func end>\n");}
 
 [a-zA-Z0-9]+ {printf("[Id %s ] ",yytext);}
 

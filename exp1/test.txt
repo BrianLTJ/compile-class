@@ -6,4 +6,9 @@
 <Char> [Id ha ] EQUAL CharVar: 'c' 
 [Id aaa ] EQUAL IntVar 2 PLUS IntVar 9 
 [Id ef ] EQUAL [Id aaa ] PLUS IntVar 9 
+<Int> [Id AddFunc ] 
+<Func start>
+[Id bb42b ] EQUAL BoolVar: false 
+
+<Func end>
 Analysis Ends.
