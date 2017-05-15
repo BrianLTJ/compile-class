@@ -1,4 +1,9 @@
-Int variable definition at Line 1, Position: 0
-Int variable definition at Line 4, Position: 2
-Int variable definition at Line 5, Position: 1
+<Int> [Id aaa ] EQUAL IntVar 5 
+<Boolean> [Id bb42b ] 
+[Id test ] [Id c ] 
+<Int> [Id d ] 
+<Int> [Id ef ] [Id gh ] 
+<Char> [Id ha ] EQUAL CharVar: 'c' 
+[Id aaa ] EQUAL IntVar 2 PLUS IntVar 9 
+[Id ef ] EQUAL [Id aaa ] PLUS IntVar 9 
 Analysis Ends.
