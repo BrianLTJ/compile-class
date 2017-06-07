@@ -21,8 +21,7 @@ enum yytokentype {
   EOL = 299
 };
 int yylval;
-int line=0;
-
+int line = 1;
 %}
 
 %%
@@ -45,7 +44,7 @@ int line=0;
 "/*" { /*Do Nothing*/ }
 "*/" { /*Do Nothing*/ }
 [ \t] { /*Do Nothing*/ }
-\n { line++; return EOL; }
+\n { /*line++;*/ return EOL; }
 . { /*Do Nothing*/ }
 
 %%
@@ -110,6 +109,7 @@ main(int argc, char **argv){
         break;
       case EOL:
         printf("EOL");
+        line ++;
         break;
       default:
         printf("UNKNOWN: %c", yytext);

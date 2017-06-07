@@ -557,10 +557,9 @@ enum yytokentype {
   EOL = 299
 };
 int yylval;
-int line=0;
-
+int line = 1;
+#line 561 "lex.yy.c"
 #line 562 "lex.yy.c"
-#line 563 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -777,9 +776,9 @@ YY_DECL
 		}
 
 	{
-#line 28 "exp2.l"
+#line 27 "exp2.l"
 
-#line 782 "lex.yy.c"
+#line 781 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -838,116 +837,116 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 29 "exp2.l"
+#line 28 "exp2.l"
 { return ADD; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 30 "exp2.l"
+#line 29 "exp2.l"
 { return SUB; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 31 "exp2.l"
+#line 30 "exp2.l"
 { return MUL; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 32 "exp2.l"
+#line 31 "exp2.l"
 { return DIV; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 33 "exp2.l"
+#line 32 "exp2.l"
 { return MOD; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 34 "exp2.l"
+#line 33 "exp2.l"
 { return OR; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 35 "exp2.l"
+#line 34 "exp2.l"
 { return ASG; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 36 "exp2.l"
+#line 35 "exp2.l"
 { return EQ; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 37 "exp2.l"
+#line 36 "exp2.l"
 { return GT; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 38 "exp2.l"
+#line 37 "exp2.l"
 { return GE; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 39 "exp2.l"
+#line 38 "exp2.l"
 { return LT; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 40 "exp2.l"
+#line 39 "exp2.l"
 { return LE; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 41 "exp2.l"
+#line 40 "exp2.l"
 { return NE; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 42 "exp2.l"
+#line 41 "exp2.l"
 { yylval = 1; return BOOL; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 43 "exp2.l"
+#line 42 "exp2.l"
 { yylval = 0; return BOOL; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 44 "exp2.l"
+#line 43 "exp2.l"
 { yylval = atoi(yytext); return NUMBER;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 45 "exp2.l"
+#line 44 "exp2.l"
 { /*Do Nothing*/ }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 46 "exp2.l"
+#line 45 "exp2.l"
 { /*Do Nothing*/ }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 47 "exp2.l"
+#line 46 "exp2.l"
 { /*Do Nothing*/ }
 	YY_BREAK
 case 20:
 /* rule 20 can match eol */
 YY_RULE_SETUP
-#line 48 "exp2.l"
-{ line++; return EOL; }
+#line 47 "exp2.l"
+{ /*line++;*/ return EOL; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 49 "exp2.l"
+#line 48 "exp2.l"
 { /*Do Nothing*/ }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 51 "exp2.l"
+#line 50 "exp2.l"
 ECHO;
 	YY_BREAK
-#line 950 "lex.yy.c"
+#line 949 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1948,7 +1947,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 51 "exp2.l"
+#line 50 "exp2.l"
 
 
 main(int argc, char **argv){
@@ -2011,6 +2010,7 @@ main(int argc, char **argv){
         break;
       case EOL:
         printf("EOL");
+        line ++;
         break;
       default:
         printf("UNKNOWN: %c", yytext);
