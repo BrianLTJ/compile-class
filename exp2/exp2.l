@@ -1,10 +1,12 @@
 %option noyywrap
 %{
 #include <stdio.h>
+#include <string.h>
 enum yytokentype {
   NUMBER = 258,
-  BOOL = 259,
-  CHAR = 260,
+  INT = 259,
+  BOOL = 260,
+  CHAR = 261,
   ADD = 271,
   SUB = 272,
   MUL = 273,
@@ -18,11 +20,20 @@ enum yytokentype {
   LT = 281,
   LE = 282,
   NE = 283,
-  EOL = 299
+
+  /*Reserved words*/
+  REW = 301,
+  DELIM = 302,
+
+  IDENTIFIER = 310,
+
+  EOL = 399
 };
 int yylval;
 int line = 1;
+char yyidentifier[100];
 %}
+
 
 %%
 "+" { return ADD; }
@@ -40,9 +51,13 @@ int line = 1;
 "!=" { return NE; }
 "true" { yylval = 1; return BOOL; }
 "false" { yylval = 0; return BOOL; }
+","|";"|":" {return DELIM;}
+"<".+">" {return 400;}
+int|bool|char|float|while|for|if|then|true|false|break|continue|public|private|struct|define|include|#include|switch|case|do|loop { return REW; }
+[\_a-zA-Z]{1}[\_0-9a-zA-Z]* { /*yyidentifier=yytext;*/ return IDENTIFIER; }
 [0-9]+ { yylval = atoi(yytext); return NUMBER;}
-"/*" { /*Do Nothing*/ }
-"*/" { /*Do Nothing*/ }
+"/*".*"*/" { /*Comment Do Nothing*/ }
+"//".*[^\n] { /*Comment Do Nothing*/ }
 [ \t] { /*Do Nothing*/ }
 \n { /*line++;*/ return EOL; }
 . { /*Do Nothing*/ }
@@ -104,8 +119,17 @@ main(int argc, char **argv){
       case NE:
         printf("NE");
         break;
+      case DELIM:
+        printf("DELIM %s", yytext);
+        break;
       case NUMBER:
         printf("NUM %d", yylval);
+        break;
+      case IDENTIFIER:
+        printf("IDENTIFIER %s", yytext);
+        break;
+      case REW:
+        printf("RESERVED WORD %s", yytext);
         break;
       case EOL:
         printf("EOL");
