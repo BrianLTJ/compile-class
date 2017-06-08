@@ -5,8 +5,9 @@
 enum yytokentype {
   NUMBER = 258,
   INT = 259,
-  BOOL = 260,
-  CHAR = 261,
+  DOUBLE = 260,
+  BOOL = 261,
+  CHAR = 262,
   ADD = 271,
   SUB = 272,
   MUL = 273,
@@ -20,6 +21,7 @@ enum yytokentype {
   LT = 281,
   LE = 282,
   NE = 283,
+  NOT = 284,
 
   /*Reserved words*/
   REW = 301,
@@ -33,7 +35,6 @@ int yylval;
 int line = 1;
 char yyidentifier[100];
 %}
-
 
 %%
 "+" { return ADD; }
@@ -49,19 +50,21 @@ char yyidentifier[100];
 "<" { return LT; }
 "<=" { return LE; }
 "!=" { return NE; }
+"!" {return NOT;}
 "true" { yylval = 1; return BOOL; }
 "false" { yylval = 0; return BOOL; }
-","|";"|":" {return DELIM;}
-"<".+">" {return 400;}
-int|bool|char|float|while|for|if|then|true|false|break|continue|public|private|struct|define|include|#include|switch|case|do|loop { return REW; }
+","|";"|":"|"{"|"}"|"("|")"|"["|"]" {return DELIM;}
+"<".+">" {return REW;}
+int|bool|char|double|float|while|for|if|then|true|false|break|continue|public|private|struct|define|include|#include|switch|case|default|do|loop { return REW; }
+[^\\]\'(\\\'|[^\'])[^\\]\' {return CHAR;}
 [\_a-zA-Z]{1}[\_0-9a-zA-Z]* { /*yyidentifier=yytext;*/ return IDENTIFIER; }
-[0-9]+ { yylval = atoi(yytext); return NUMBER;}
+[0-9]+\.[0-9]+ { return DOUBLE;}
+[0-9]+ { yylval = atoi(yytext); return INT;}
 "/*".*"*/" { /*Comment Do Nothing*/ }
 "//".*[^\n] { /*Comment Do Nothing*/ }
 [ \t] { /*Do Nothing*/ }
 \n { /*line++;*/ return EOL; }
 . { /*Do Nothing*/ }
-
 %%
 
 main(int argc, char **argv){
@@ -119,11 +122,23 @@ main(int argc, char **argv){
       case NE:
         printf("NE");
         break;
+      case NOT:
+        printf("NOT");
+        break;
       case DELIM:
         printf("DELIM %s", yytext);
         break;
-      case NUMBER:
-        printf("NUM %d", yylval);
+      case INT:
+        printf("NUM INT %d", yylval);
+        break;
+      case DOUBLE:
+        printf("NUM DOUBLE %f", atof(yytext));
+        break;
+      case BOOL:
+        printf("BOOL %d",yylval);
+        break;
+      case CHAR:
+        printf("CHAR %s", yytext);
         break;
       case IDENTIFIER:
         printf("IDENTIFIER %s", yytext);
