@@ -1,6 +1,6 @@
 /*TEST1*/
 #include <stdio.h>
-
+bool absa;
 int main(){
   int a, b, d;
   // Comment 2
