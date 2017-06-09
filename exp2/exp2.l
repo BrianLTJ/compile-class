@@ -26,7 +26,8 @@ enum yytokentype {
   /*Reserved words*/
   REW = 301,
   DELIM = 302,
-
+  INCLUDE=303,
+  INCLUDEFILE=304,
   IDENTIFIER = 310,
 
   EOL = 399
@@ -54,7 +55,10 @@ char yyidentifier[100];
 "true" { yylval = 1; return BOOL; }
 "false" { yylval = 0; return BOOL; }
 ","|";"|":"|"{"|"}"|"("|")"|"["|"]" {return DELIM;}
-"<".+">" {return REW;}
+
+"#include" { return INCLUDE; }
+"<"[^\n]+">" {return INCLUDEFILE;}
+"\""[^\n]+"\"" {return INCLUDEFILE;}
 int|bool|char|double|float|while|for|if|then|true|false|break|continue|public|private|struct|define|include|#include|switch|case|default|do|loop { return REW; }
 [^\\]\'(\\\'|[^\'])[^\\]\' {return CHAR;}
 [\_a-zA-Z]{1}[\_0-9a-zA-Z]* { /*yyidentifier=yytext;*/ return IDENTIFIER; }
@@ -124,6 +128,12 @@ main(int argc, char **argv){
         break;
       case NOT:
         printf("NOT");
+        break;
+      case INCLUDE:
+        printf("INCLUDE");
+        break;
+      case INCLUDEFILE:
+        printf("INCLUDEFILE");
         break;
       case DELIM:
         printf("DELIM %s", yytext);
