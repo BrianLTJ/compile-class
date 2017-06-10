@@ -1,4 +1,3 @@
-/*TEST1*/
 #include <stdio.h>
 bool absa;
 int main(){

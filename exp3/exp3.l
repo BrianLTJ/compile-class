@@ -21,17 +21,25 @@
 ":" { return COLON; }
 ";" { return SEMICO; }
 
-"/*""*/" {/* comment */}
-"//".+\n {/* comment */}
+"/*".+"*/" {/* comment */}
+"//".+[^\n] {/* comment */ line++; printf("L%d \n",line);}
 
-int|bool|char|double { return VARTYPE;}
+int|bool|char|double|void { return VARTYPE;}
 
 "#include" { return INCLUDE; }
 "<"[^\n]+">" {return INCLUDEFILE;}
 "\""[^\n]+"\"" {return INCLUDEFILE;}
-[0-9]+ { return NUMBER; }
+[0-9]+ { return INT; }
+
+[^\\]\'(\\\'|[^\'])[^\\]\' {return CHAR;}
+[0-9]+\.[0-9]+ { return DOUBLE;}
+
+"true" { return BOOL; }
+"false" { return BOOL; }
+
 [\_a-zA-Z]{1}[\_0-9a-zA-Z]* { return IDENTIFIER; }
-'\n' { line++; return EOL; }
+\n { line++;}
+
 [ \t] { /*blank*/ }
 . { /*Do nothing*/ }
 %%

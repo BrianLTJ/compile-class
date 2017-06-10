@@ -5,7 +5,7 @@
     int ch=1;
 %}
 
-%token NUMBER
+%token NUMBER INT DOUBLE BOOL CHAR
 %token ADD SUB MUL DIV  MOD
 %token ASG OP CP OSQ CSQ OC CC
 %token IDENTIFIER VARTYPE
@@ -15,44 +15,51 @@
 
 %%
 source:
-includeseq body { printf("source -> includeseq body");}
-| includeseq { printf("source -> includeseq");}
-| body { printf("source -> body");}
+ | includeseq body { printf("source -> includeseq body\n"); }
+ | body { printf("source -> body\n"); }
 ;
 
-includeseq: 
-include includeseq { printf("includeseq -> include includeseq");}
-|include { printf("includeseq -> include\n");}
+includeseq:
+ | include includeseq { printf("includeseq -> include includeseq\n"); }
+ | include '\n' { printf("includeseq -> include\n"); }
 ;
 
 include:
-INCLUDE INCLUDEFILE
+ | INCLUDE INCLUDEFILE { printf("include -> INCLUDE INCLUDEFILE\n"); }
 ;
 
 body:
-statement
+ | OC statement CC { printf("body -> OC statement CC\n"); }
+ | statement { printf("body -> statement\n"); }
 ;
 
-
-statement: 
-IDENTIFIER ASG expression SEMICO statement { printf("L%d ", line); printf("statement -> ID = exp statement\n"); }
-| IDENTIFIER ASG expression SEMICO { printf("L%d ", line); printf("statement -> ID = exp\n"); }
-; 
-
-expression: 
-expression ADD term { printf("L%d ", line); printf("exp -> exp + term\n"); }
-| term { printf("L%d ", line); printf("exp -> term\n");}
+statement:
+ | IDENTIFIER ASG expression SEMICO { printf("statement -> IDENTIFIER ASG expression\n"); }
+ | VARTYPE IDENTIFIER ASG expression SEMICO { printf("statement -> VARTYPE IDENTIFIER ASG expression\n"); }
 ;
 
-term: 
-term MUL factor { printf("L%d ", line); printf("term -> term * factor\n"); }
-| factor { printf("L%d ", line); printf("term -> factor\n"); }
+expression:
+ | expression ADD term { printf("expression -> expression ADD term\n"); }
+ | expression SUB term { printf("expression -> expression SUB term\n"); }
+ | term { printf("expression -> term\n"); }
+;
+
+term:
+ | term MUL factor { printf("term -> term MUL factor\n"); }
+ | term DIV factor { printf("term -> term DIV factor\n"); }
+ | term MOD factor { printf("term -> term MOD factor\n"); }
+ | factor { printf("term -> factor\n"); }
 ;
 
 factor:
-OP expression CP { printf("L%d ", line); printf("factor -> ( exp )\n"); }
-| NUMBER { printf("L%d ", line); printf("factor -> number\n");}
+ | OP expression CP { printf("factor -> OP expression CP\n"); }
+ | NUMBER { printf("factor -> NUMBER\n"); }
+ | INT { printf("factor -> INT\n"); }
+ | DOUBLE { printf("factor -> DOUBLE\n"); }
+ | BOOL { printf("factor -> BOOL\n"); }
 ;
+
+
 %%
 
 int main(int argc, char **argv)
