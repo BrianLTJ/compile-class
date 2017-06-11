@@ -59,11 +59,11 @@ char yyidentifier[100];
 "#include" { return INCLUDE; }
 "<"[^\n]+">" {return INCLUDEFILE;}
 "\""[^\n]+"\"" {return INCLUDEFILE;}
-int|bool|char|double|float|while|for|if|then|true|false|break|continue|public|private|struct|define|include|#include|switch|case|default|do|loop { return REW; }
-[^\\]\'(\\\'|[^\'])[^\\]\' {return CHAR;}
+int|bool|char|double|float|const|while|for|if|then|true|false|break|continue|public|private|struct|define|include|switch|case|default|do|loop { return REW; }
+\'.{1}\' {return CHAR;}
 [\_a-zA-Z]{1}[\_0-9a-zA-Z]* { /*yyidentifier=yytext;*/ return IDENTIFIER; }
-[0-9]+\.[0-9]+ { return DOUBLE;}
-[0-9]+ { yylval = atoi(yytext); return INT;}
+[-|+]{0,1}[0-9]+\.[0-9]+ { return DOUBLE;}
+[-|+]{0,1}[0-9]+ { yylval = atoi(yytext); return INT;}
 "/*".*"*/" { /*Comment Do Nothing*/ }
 "//".*[^\n] { /*Comment Do Nothing*/ }
 [ \t] { /*Do Nothing*/ }
