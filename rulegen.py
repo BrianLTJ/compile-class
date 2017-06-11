@@ -71,16 +71,47 @@ rules1 = [
 
 rules = [
     ['source',[
-        ['includeseq','body'],
-        ['body'],
+        ['include','source'],
+        ['include'],
+        ['func_dec','source'],
+        ['func_dec'],
+        ['func_def','source'],
+        ['func_def'],
+        ['var_dec','source'],
+        ['var_dec'],
+        ['var_dec','source'],
+        ['var_dec'],
     ]],
+
     ['includeseq',[
         ['include','includeseq'],
-        ['include']
+        ['include','\'\\n\'']
     ]],
+
     ['include',[
         ['INCLUDE','INCLUDEFILE']
     ]],
+    
+    ['expression',[
+        ['expression','ADD','term'],
+        ['expression','SUB','term'],
+        ['term']
+    ]],
+
+    ['term',[
+        ['term','MUL','factor'],
+        ['term','DIV','factor'],
+        ['term','MOD','factor'],
+        ['factor']
+    ]],
+
+    ['factor',[
+        ['OP','expression','CP'],
+        ['NUMBER'],
+        ['INT'],
+        ['DOUBLE'],
+        ['BOOL']
+    ]]
 ]
 
 prt = ""

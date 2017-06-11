@@ -21,6 +21,7 @@
 ":" { return COLON; }
 ";" { return SEMICO; }
 
+
 "/*".+"*/" {/* comment */}
 "//".+[^\n] {/* comment */ line++; printf("L%d \n",line);}
 
@@ -29,6 +30,7 @@ int|bool|char|double|void { return VARTYPE;}
 "#include" { return INCLUDE; }
 "<"[^\n]+">" {return INCLUDEFILE;}
 "\""[^\n]+"\"" {return INCLUDEFILE;}
+
 [0-9]+ { return INT; }
 
 [^\\]\'(\\\'|[^\'])[^\\]\' {return CHAR;}

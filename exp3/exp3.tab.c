@@ -384,18 +384,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  14
+#define YYFINAL  9
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   52
+#define YYLAST   51
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  29
+#define YYNTOKENS  28
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  9
+#define YYNNTS  12
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  30
+#define YYNRULES  39
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  43
+#define YYNSTATES  49
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -410,7 +410,7 @@ union yyalloc
 static const yytype_uint8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      28,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -445,9 +445,9 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    17,    17,    18,    19,    22,    23,    24,    27,    28,
-      31,    32,    33,    36,    37,    38,    41,    42,    43,    44,
-      47,    48,    49,    50,    51,    54,    55,    56,    57,    58,
-      59
+      31,    32,    35,    36,    37,    38,    39,    40,    43,    44,
+      45,    48,    49,    52,    53,    56,    57,    58,    59,    62,
+      63,    64,    65,    66,    69,    70,    71,    72,    73,    74
 };
 #endif
 
@@ -459,9 +459,9 @@ static const char *const yytname[] =
   "$end", "error", "$undefined", "NUMBER", "INT", "DOUBLE", "BOOL",
   "CHAR", "ADD", "SUB", "MUL", "DIV", "MOD", "ASG", "OP", "CP", "OSQ",
   "CSQ", "OC", "CC", "IDENTIFIER", "VARTYPE", "COMMA", "COLON", "SEMICO",
-  "INCLUDE", "INCLUDEFILE", "EOL", "'\\n'", "$accept", "source",
-  "includeseq", "include", "body", "statement", "expression", "term",
-  "factor", YY_NULLPTR
+  "INCLUDE", "INCLUDEFILE", "EOL", "$accept", "source", "includeseq",
+  "include", "body", "block", "statementseq", "statement", "assignment",
+  "expression", "term", "factor", YY_NULLPTR
 };
 #endif
 
@@ -472,16 +472,16 @@ static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,   278,   279,   280,   281,   282,    10
+     275,   276,   277,   278,   279,   280,   281,   282
 };
 # endif
 
-#define YYPACT_NINF -14
+#define YYPACT_NINF -13
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-14)))
+  (!!((Yystate) == (-13)))
 
-#define YYTABLE_NINF -21
+#define YYTABLE_NINF -30
 
 #define yytable_value_is_error(Yytable_value) \
   0
@@ -490,11 +490,11 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       6,   -12,     4,     5,    -3,    44,    18,    12,   -14,   -14,
-      29,     1,    36,   -14,   -14,   -14,   -14,   -14,   -14,   -14,
-     -14,   -14,   -14,     1,    -8,    31,   -14,     1,    20,    16,
-      16,   -14,    16,    16,    16,    -6,   -14,    31,    31,   -14,
-     -14,   -14,   -14
+       0,     2,     3,    43,     0,   -13,   -13,    30,   -13,   -13,
+     -13,   -13,    31,   -12,     7,    32,   -13,   -13,   -13,   -13,
+     -13,    18,    20,    -1,   -13,   -13,   -13,   -13,   -13,   -13,
+     -13,   -13,    -1,    -8,    21,   -13,    15,    14,    14,   -13,
+      14,    14,    14,   -13,    21,    21,   -13,   -13,   -13
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -502,23 +502,25 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       2,    13,     0,     0,     0,     0,    10,     5,     4,    12,
-       0,    16,     0,     9,     1,     3,     7,     6,    11,    27,
-      28,    29,    30,    16,     0,    19,    24,    16,     0,    20,
-      20,    14,    25,    25,    25,     0,    26,    17,    18,    21,
-      22,    23,    15
+       2,     0,     0,     0,     8,     7,     4,     0,     9,     1,
+       6,     3,     0,    12,     0,     0,    17,    11,    16,    22,
+      13,     0,     0,    25,    14,    19,    15,    20,    36,    37,
+      38,    39,    25,     0,    28,    33,     0,    29,    29,    24,
+      34,    34,    34,    35,    26,    27,    30,    31,    32
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -14,   -14,    43,   -14,    45,    51,   -13,     3,    13
+     -13,   -13,   -13,    44,    45,   -13,   -13,    -7,   -13,    19,
+       4,    -6
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     5,     6,     7,     8,     9,    24,    25,    26
+      -1,     3,     4,     5,     6,    17,    21,    18,    19,    33,
+      34,    35
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -526,51 +528,51 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      29,    30,    29,    30,    19,    20,    21,    22,     2,     3,
-      28,   -20,   -20,   -20,    35,    23,    31,    11,    42,    19,
-      20,    21,    22,    13,     1,    12,     2,     3,    29,    30,
-      23,     4,    37,    38,    -8,    36,     1,     4,     2,     3,
-      16,    32,    33,    34,    14,    39,    40,    41,    18,    27,
-      17,    15,    10
+      37,    38,    28,    29,    30,    31,    14,    22,    15,   -29,
+     -29,   -29,    16,    32,    25,    27,    39,    28,    29,    30,
+      31,     1,     7,    37,    38,     2,    20,    15,    32,     8,
+      43,    40,    41,    42,    46,    47,    48,    24,    15,    26,
+      15,    44,    45,     9,    12,    23,    13,     0,    10,    11,
+       0,    36
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-       8,     9,     8,     9,     3,     4,     5,     6,    20,    21,
-      23,    10,    11,    12,    27,    14,    24,    13,    24,     3,
-       4,     5,     6,    26,    18,    20,    20,    21,     8,     9,
-      14,    25,    29,    30,    28,    15,    18,    25,    20,    21,
-      28,    10,    11,    12,     0,    32,    33,    34,    19,    13,
-       7,     6,     1
+       8,     9,     3,     4,     5,     6,    18,    14,    20,    10,
+      11,    12,    24,    14,    21,    22,    24,     3,     4,     5,
+       6,    21,    20,     8,     9,    25,    19,    20,    14,    26,
+      15,    10,    11,    12,    40,    41,    42,    19,    20,    19,
+      20,    37,    38,     0,    14,    13,    15,    -1,     4,     4,
+      -1,    32
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    18,    20,    21,    25,    30,    31,    32,    33,    34,
-      34,    13,    20,    26,     0,    33,    28,    31,    19,     3,
-       4,     5,     6,    14,    35,    36,    37,    13,    35,     8,
-       9,    24,    10,    11,    12,    35,    15,    36,    36,    37,
-      37,    37,    24
+       0,    21,    25,    29,    30,    31,    32,    20,    26,     0,
+      31,    32,    14,    15,    18,    20,    24,    33,    35,    36,
+      19,    34,    35,    13,    19,    35,    19,    35,     3,     4,
+       5,     6,    14,    37,    38,    39,    37,     8,     9,    24,
+      10,    11,    12,    15,    38,    38,    39,    39,    39
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    29,    30,    30,    30,    31,    31,    31,    32,    32,
-      33,    33,    33,    34,    34,    34,    35,    35,    35,    35,
-      36,    36,    36,    36,    36,    37,    37,    37,    37,    37,
-      37
+       0,    28,    29,    29,    29,    30,    30,    30,    31,    31,
+      32,    32,    33,    33,    33,    33,    33,    33,    34,    34,
+      34,    35,    35,    36,    36,    37,    37,    37,    37,    38,
+      38,    38,    38,    38,    39,    39,    39,    39,    39,    39
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     0,     2,     1,     0,     2,     2,     0,     2,
-       0,     3,     1,     0,     4,     5,     0,     3,     3,     1,
-       0,     3,     3,     3,     1,     0,     3,     1,     1,     1,
-       1
+       0,     2,     0,     2,     1,     0,     2,     1,     0,     2,
+       0,     5,     0,     2,     3,     3,     1,     1,     0,     2,
+       2,     0,     1,     0,     4,     0,     3,     3,     1,     0,
+       3,     3,     3,     1,     0,     3,     1,     1,     1,     1
 };
 
 
@@ -1249,131 +1251,167 @@ yyreduce:
         case 3:
 #line 18 "exp3.y" /* yacc.c:1646  */
     { printf("source -> includeseq body\n"); }
-#line 1253 "exp3.tab.c" /* yacc.c:1646  */
+#line 1255 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
 #line 19 "exp3.y" /* yacc.c:1646  */
     { printf("source -> body\n"); }
-#line 1259 "exp3.tab.c" /* yacc.c:1646  */
+#line 1261 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
 #line 23 "exp3.y" /* yacc.c:1646  */
-    { printf("includeseq -> include includeseq\n"); }
-#line 1265 "exp3.tab.c" /* yacc.c:1646  */
+    { printf("includeseq -> includeseq include\n"); }
+#line 1267 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
 #line 24 "exp3.y" /* yacc.c:1646  */
-    { printf("includeseq -> include\n"); }
-#line 1271 "exp3.tab.c" /* yacc.c:1646  */
+    { printf("includeseq -> include '\n'\n"); }
+#line 1273 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
 #line 28 "exp3.y" /* yacc.c:1646  */
     { printf("include -> INCLUDE INCLUDEFILE\n"); }
-#line 1277 "exp3.tab.c" /* yacc.c:1646  */
+#line 1279 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
 #line 32 "exp3.y" /* yacc.c:1646  */
-    { printf("body -> OC statement CC\n"); }
-#line 1283 "exp3.tab.c" /* yacc.c:1646  */
+    { printf("body -> VARTYPE IDENTIFIER OP CP block\n"); }
+#line 1285 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
-  case 12:
-#line 33 "exp3.y" /* yacc.c:1646  */
-    { printf("body -> statement\n"); }
-#line 1289 "exp3.tab.c" /* yacc.c:1646  */
+  case 13:
+#line 36 "exp3.y" /* yacc.c:1646  */
+    { printf("block -> OC CC\n"); }
+#line 1291 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
 #line 37 "exp3.y" /* yacc.c:1646  */
-    { printf("statement -> IDENTIFIER ASG expression\n"); }
-#line 1295 "exp3.tab.c" /* yacc.c:1646  */
+    { printf("block -> OC statementseq CC\n"); }
+#line 1297 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
 #line 38 "exp3.y" /* yacc.c:1646  */
-    { printf("statement -> VARTYPE IDENTIFIER ASG expression\n"); }
-#line 1301 "exp3.tab.c" /* yacc.c:1646  */
+    { printf("block -> OC statementseq CC\n"); }
+#line 1303 "exp3.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 16:
+#line 39 "exp3.y" /* yacc.c:1646  */
+    { printf("block -> statementseq\n"); }
+#line 1309 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 42 "exp3.y" /* yacc.c:1646  */
-    { printf("expression -> expression ADD term\n"); }
-#line 1307 "exp3.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 18:
-#line 43 "exp3.y" /* yacc.c:1646  */
-    { printf("expression -> expression SUB term\n"); }
-#line 1313 "exp3.tab.c" /* yacc.c:1646  */
+#line 40 "exp3.y" /* yacc.c:1646  */
+    { printf("block -> SEMICO\n"); }
+#line 1315 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 44 "exp3.y" /* yacc.c:1646  */
-    { printf("expression -> term\n"); }
-#line 1319 "exp3.tab.c" /* yacc.c:1646  */
+    { printf("statementseq -> statement statementseq\n"); }
+#line 1321 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
-  case 21:
-#line 48 "exp3.y" /* yacc.c:1646  */
-    { printf("term -> term MUL factor\n"); }
-#line 1325 "exp3.tab.c" /* yacc.c:1646  */
+  case 20:
+#line 45 "exp3.y" /* yacc.c:1646  */
+    { printf("statementseq -> statement CC\n"); }
+#line 1327 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
 #line 49 "exp3.y" /* yacc.c:1646  */
-    { printf("term -> term DIV factor\n"); }
-#line 1331 "exp3.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 23:
-#line 50 "exp3.y" /* yacc.c:1646  */
-    { printf("term -> term MOD factor\n"); }
-#line 1337 "exp3.tab.c" /* yacc.c:1646  */
+    { printf("statement -> assignment\n"); }
+#line 1333 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 51 "exp3.y" /* yacc.c:1646  */
-    { printf("term -> factor\n"); }
-#line 1343 "exp3.tab.c" /* yacc.c:1646  */
+#line 53 "exp3.y" /* yacc.c:1646  */
+    { printf("assignment -> IDENTIFIER ASG expression SEMICO\n"); }
+#line 1339 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 55 "exp3.y" /* yacc.c:1646  */
-    { printf("factor -> OP expression CP\n"); }
-#line 1349 "exp3.tab.c" /* yacc.c:1646  */
+#line 57 "exp3.y" /* yacc.c:1646  */
+    { printf("expression -> expression ADD term\n"); }
+#line 1345 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 56 "exp3.y" /* yacc.c:1646  */
-    { printf("factor -> NUMBER\n"); }
-#line 1355 "exp3.tab.c" /* yacc.c:1646  */
+#line 58 "exp3.y" /* yacc.c:1646  */
+    { printf("expression -> expression SUB term\n"); }
+#line 1351 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 57 "exp3.y" /* yacc.c:1646  */
-    { printf("factor -> INT\n"); }
-#line 1361 "exp3.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 29:
-#line 58 "exp3.y" /* yacc.c:1646  */
-    { printf("factor -> DOUBLE\n"); }
-#line 1367 "exp3.tab.c" /* yacc.c:1646  */
+#line 59 "exp3.y" /* yacc.c:1646  */
+    { printf("expression -> term\n"); }
+#line 1357 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 59 "exp3.y" /* yacc.c:1646  */
+#line 63 "exp3.y" /* yacc.c:1646  */
+    { printf("term -> term MUL factor\n"); }
+#line 1363 "exp3.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 31:
+#line 64 "exp3.y" /* yacc.c:1646  */
+    { printf("term -> term DIV factor\n"); }
+#line 1369 "exp3.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 32:
+#line 65 "exp3.y" /* yacc.c:1646  */
+    { printf("term -> term MOD factor\n"); }
+#line 1375 "exp3.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 33:
+#line 66 "exp3.y" /* yacc.c:1646  */
+    { printf("term -> factor\n"); }
+#line 1381 "exp3.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 35:
+#line 70 "exp3.y" /* yacc.c:1646  */
+    { printf("factor -> OP expression CP\n"); }
+#line 1387 "exp3.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 36:
+#line 71 "exp3.y" /* yacc.c:1646  */
+    { printf("factor -> NUMBER\n"); }
+#line 1393 "exp3.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 37:
+#line 72 "exp3.y" /* yacc.c:1646  */
+    { printf("factor -> INT\n"); }
+#line 1399 "exp3.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 38:
+#line 73 "exp3.y" /* yacc.c:1646  */
+    { printf("factor -> DOUBLE\n"); }
+#line 1405 "exp3.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 39:
+#line 74 "exp3.y" /* yacc.c:1646  */
     { printf("factor -> BOOL\n"); }
-#line 1373 "exp3.tab.c" /* yacc.c:1646  */
+#line 1411 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1377 "exp3.tab.c" /* yacc.c:1646  */
+#line 1415 "exp3.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1601,7 +1639,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 63 "exp3.y" /* yacc.c:1906  */
+#line 76 "exp3.y" /* yacc.c:1906  */
 
 
 int main(int argc, char **argv)

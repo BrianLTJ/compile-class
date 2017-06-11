@@ -966,84 +966,84 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 24 "exp3.l"
+#line 25 "exp3.l"
 {/* comment */}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 25 "exp3.l"
+#line 26 "exp3.l"
 {/* comment */ line++; printf("L%d \n",line);}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 27 "exp3.l"
+#line 28 "exp3.l"
 { return VARTYPE;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 29 "exp3.l"
+#line 30 "exp3.l"
 { return INCLUDE; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 30 "exp3.l"
+#line 31 "exp3.l"
 {return INCLUDEFILE;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 31 "exp3.l"
+#line 32 "exp3.l"
 {return INCLUDEFILE;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 32 "exp3.l"
+#line 34 "exp3.l"
 { return INT; }
 	YY_BREAK
 case 23:
 /* rule 23 can match eol */
 YY_RULE_SETUP
-#line 34 "exp3.l"
+#line 36 "exp3.l"
 {return CHAR;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 35 "exp3.l"
+#line 37 "exp3.l"
 { return DOUBLE;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 37 "exp3.l"
+#line 39 "exp3.l"
 { return BOOL; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 38 "exp3.l"
+#line 40 "exp3.l"
 { return BOOL; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 40 "exp3.l"
+#line 42 "exp3.l"
 { return IDENTIFIER; }
 	YY_BREAK
 case 28:
 /* rule 28 can match eol */
 YY_RULE_SETUP
-#line 41 "exp3.l"
+#line 43 "exp3.l"
 { line++;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 43 "exp3.l"
+#line 45 "exp3.l"
 { /*blank*/ }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 44 "exp3.l"
+#line 46 "exp3.l"
 { /*Do nothing*/ }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 45 "exp3.l"
+#line 47 "exp3.l"
 ECHO;
 	YY_BREAK
 #line 1049 "lex.yy.c"
@@ -2047,6 +2047,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 45 "exp3.l"
+#line 47 "exp3.l"
 
 

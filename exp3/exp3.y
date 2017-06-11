@@ -20,8 +20,8 @@ source:
 ;
 
 includeseq:
- | include includeseq { printf("includeseq -> include includeseq\n"); }
- | include '\n' { printf("includeseq -> include\n"); }
+ | includeseq include { printf("includeseq -> includeseq include\n"); }
+ | include { printf("includeseq -> include '\n'\n"); }
 ;
 
 include:
@@ -29,13 +29,28 @@ include:
 ;
 
 body:
- | OC statement CC { printf("body -> OC statement CC\n"); }
- | statement { printf("body -> statement\n"); }
+ | VARTYPE IDENTIFIER OP CP block { printf("body -> VARTYPE IDENTIFIER OP CP block\n"); }
+;
+
+block:
+ | OC CC { printf("block -> OC CC\n"); }
+ | OC statementseq CC { printf("block -> OC statementseq CC\n"); }
+ | OC statement CC { printf("block -> OC statementseq CC\n"); }
+ | statement { printf("block -> statementseq\n"); }
+ | SEMICO { printf("block -> SEMICO\n"); }
+;
+
+statementseq:
+ | statementseq statement  { printf("statementseq -> statement statementseq\n"); }
+ | statement statement { printf("statementseq -> statement CC\n"); }
 ;
 
 statement:
- | IDENTIFIER ASG expression SEMICO { printf("statement -> IDENTIFIER ASG expression\n"); }
- | VARTYPE IDENTIFIER ASG expression SEMICO { printf("statement -> VARTYPE IDENTIFIER ASG expression\n"); }
+ | assignment { printf("statement -> assignment\n"); }
+;
+
+assignment:
+ | IDENTIFIER ASG expression SEMICO { printf("assignment -> IDENTIFIER ASG expression SEMICO\n"); }
 ;
 
 expression:
@@ -58,8 +73,6 @@ factor:
  | DOUBLE { printf("factor -> DOUBLE\n"); }
  | BOOL { printf("factor -> BOOL\n"); }
 ;
-
-
 %%
 
 int main(int argc, char **argv)
