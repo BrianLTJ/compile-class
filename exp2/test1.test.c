@@ -5,4 +5,5 @@ int main(){
   char b[10];
   double c = a % 67 * (1.24+24);
   char d = 'c';
+  d = '\n';
 }

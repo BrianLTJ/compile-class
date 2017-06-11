@@ -61,6 +61,7 @@ char yyidentifier[100];
 "\""[^\n]+"\"" {return INCLUDEFILE;}
 int|bool|char|double|float|const|while|for|if|then|true|false|break|continue|public|private|struct|define|include|switch|case|default|do|loop { return REW; }
 \'.{1}\' {return CHAR;}
+\'\\.{1}\' {return CHAR;}
 [\_a-zA-Z]{1}[\_0-9a-zA-Z]* { /*yyidentifier=yytext;*/ return IDENTIFIER; }
 [-|+]{0,1}[0-9]+\.[0-9]+ { return DOUBLE;}
 [-|+]{0,1}[0-9]+ { yylval = atoi(yytext); return INT;}
