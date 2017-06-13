@@ -1,97 +1,46 @@
-rules1 = [
+rules = [
+    ['Source',[
+        ['SourceStatementSeq']
+    ]],
+    ['SourceStatementSeq',[
+        ['SourceStatementSeq','SourceStatement'],
+        ['SourceStatement']
+    ]],
+    ['SourceStatement',[
+        ['VarDec','SEMICO'],
+        ['FuncDec'],
+        ['FuncDef'],
+        ['Include']
+    ]],
+    ['VarDec',[
+        ['VARTYPE']
+    ]],
     ['source',[
-        ['includeseq','body'],
-        ['body'],
-    ]],
-    ['body',[
-        ['func_dec','body'],
-        ['func_def','body'],
-        ['var_def','body'],
-        ['func_def']
-    ]],
-    ['includeseq',[
-        ['include','includeseq'],
-        ['include']
-    ]],
-    ['include',[
-        ['INCLUDE','INCLUDEFILE']
-    ]],
-    ['func_header',[
-        ['VARTYPE','IDENTIFIER','OP','idseq','CP'],
-        ['VARTYPE','IDENTIFIER','OP','CP']
-    ]],
-    ['func_dec',[
-        ['func_header','SEMICO']
-    ]],
-    ['func_def',[
-        ['func_header','block']
-    ]],
-    ['var_def',[
-        ['VARTYPE','idseq','SEMICO']
-    ]],
-    ['idseq',[
-        ['idexp','idseq'],
-        ['idexp']
-    ]],
-    ['idexp',[
-        ['IDENTIFIER','ASG','expression'],
-        ['IDENTIFIER']
-    ]],
-    ['block',[
-        ['OC','statseq','CC'],
-        ['statement']
-    ]],
-    ['statseq',[
-        ['statement','statseq'],
-        ['statement']
-    ]],
-    ['statement',[
+        ['source','include'],
+        ['source','var_def'],
+        ['include'],
         ['var_def']
     ]],
 
-    ['expression',[
-        ['expression','ADD','term'],
-        ['expression','SUB','term'],
-        ['term']
-    ]],
-    ['term',[
-        ['term','MUL','factor'],
-        ['term','DIV','factor'],
-        ['term','MOD','factor'],
-        ['factor']
-    ]],
-    ['factor',[
-        ['OP','expression','CP'],
-        ['NUMBER'],
-        ['INT'],
-        ['DOUBLE'],
-        ['BOOL']
-    ]]
-]
-
-rules = [
-    ['source',[
-        ['include','source'],
-        ['include'],
-        ['func_dec','source'],
-        ['func_dec'],
-        ['func_def','source'],
-        ['func_def'],
-        ['var_dec','source'],
-        ['var_dec'],
-        ['var_dec','source'],
-        ['var_dec'],
-    ]],
-
-    ['includeseq',[
-        ['include','includeseq'],
-        ['include','\'\\n\'']
-    ]],
-
-    ['include',[
+    ['Include',[
         ['INCLUDE','INCLUDEFILE']
     ]],
-    
+
+    ['var_def',[
+        ['VARTYPE','var_def_idseq','SEMICO']
+    ]],
+
+    ['var_def_idseq',[
+        ['var_def_idseq','IDENTIFIER'],
+        ['var_def_idseq','assignment'],
+        ['IDENTIFIER','COMMA'],
+        ['assignment','COMMA'],
+    ]],
+
+    ['assignment',[
+        ['IDENTIFIER','ASG','expression']
+    ]],
+
     ['expression',[
         ['expression','ADD','term'],
         ['expression','SUB','term'],
@@ -127,5 +76,5 @@ for i in rules:
             prt=prt+" "+k
             rule=rule+" "+k
         print(" |"+rule+" { printf(\""+prt+"\\n\"); }")
-    
+
     print(";\n")

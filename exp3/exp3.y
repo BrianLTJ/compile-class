@@ -15,42 +15,27 @@
 
 %%
 source:
- | includeseq body { printf("source -> includeseq body\n"); }
- | body { printf("source -> body\n"); }
-;
-
-includeseq:
- | includeseq include { printf("includeseq -> includeseq include\n"); }
- | include { printf("includeseq -> include '\n'\n"); }
+ | source include { printf("source -> source include\n"); }
+ | source var_def { printf("source -> source var_def\n"); }
 ;
 
 include:
  | INCLUDE INCLUDEFILE { printf("include -> INCLUDE INCLUDEFILE\n"); }
 ;
 
-body:
- | VARTYPE IDENTIFIER OP CP block { printf("body -> VARTYPE IDENTIFIER OP CP block\n"); }
+var_def:
+ | VARTYPE var_def_idseq SEMICO { printf("var_def -> VARTYPE var_def_idseq SEMICO\n"); }
 ;
 
-block:
- | OC CC { printf("block -> OC CC\n"); }
- | OC statementseq CC { printf("block -> OC statementseq CC\n"); }
- | OC statement CC { printf("block -> OC statementseq CC\n"); }
- | statement { printf("block -> statementseq\n"); }
- | SEMICO { printf("block -> SEMICO\n"); }
-;
-
-statementseq:
- | statementseq statement  { printf("statementseq -> statement statementseq\n"); }
- | statement statement { printf("statementseq -> statement CC\n"); }
-;
-
-statement:
- | assignment { printf("statement -> assignment\n"); }
+var_def_idseq:
+ | var_def_idseq IDENTIFIER { printf("var_def_idseq -> var_def_idseq IDENTIFIER\n"); }
+ | var_def_idseq assignment { printf("var_def_idseq -> var_def_idseq assignment\n"); }
+ | IDENTIFIER COMMA { printf("var_def_idseq -> IDENTIFIER COMMA\n"); }
+ | assignment COMMA { printf("var_def_idseq -> assignment COMMA\n"); }
 ;
 
 assignment:
- | IDENTIFIER ASG expression SEMICO { printf("assignment -> IDENTIFIER ASG expression SEMICO\n"); }
+ | IDENTIFIER ASG expression { printf("assignment -> IDENTIFIER ASG expression\n"); }
 ;
 
 expression:
