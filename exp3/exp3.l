@@ -1,4 +1,5 @@
 /* EX3 */
+%option noyywrap
 %{
     #include <stdio.h>
     #include "exp3.tab.c"
@@ -25,7 +26,10 @@
 "/*".+"*/" {/* comment */}
 "//".+[^\n] {/* comment */ line++; printf("L%d \n",line);}
 
-int|bool|char|double|void { return VARTYPE;}
+"int"|"bool"|"char"|"double"|"void" { printf("\nLEX: VARTYPE\n"); return VARTYPE;}
+"else if" {return ELSEIF;}
+"if" {return IF;}
+"else" {return ELSE;}
 
 "#include" { return INCLUDE; }
 "<"[^\n]+">" {return INCLUDEFILE;}
