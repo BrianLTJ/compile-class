@@ -5,8 +5,8 @@
     int ch=1;
 %}
 %error-verbose
-%token NUMBER INT DOUBLE BOOL CHAR
-%token ADD SUB MUL DIV  MOD GT LT GE LE NE EQ
+%token NUMBER INT DOUBLE BOOL CHAR ARRAY
+%token ADD SUB MUL DIV  MOD NOT OR GT LT GE LE NE EQ AND OR INC DEC
 %token ASG OP CP OSQ CSQ OC CC
 %token COMMA SEMICO COLON
 %token IDENTIFIER VARTYPE
@@ -16,6 +16,15 @@
 %token SWITCH CASE DEFAULT
 %token CONTINUE RETURN BREAK
 %token EOL
+
+
+%left AND OR
+%left NE EQ
+%left LT GT GE LE
+%left ADD SUB
+%left MUL DIV
+%left NOT
+%left OP CP OSQ CSQ INC DEC
 
 %%
 source
@@ -123,6 +132,8 @@ var_def_idseq
 var_def
  : assignment { printf("var_def -> assignment\n"); }
  | IDENTIFIER { printf("var_def -> IDENTIFIER\n");}
+ | array_def { printf("var_def -> array_def\n");}
+ | array_item {printf("var_def -> array_item\n");}
 ;
 /*assignment statement*/
 assignment_statement
@@ -132,8 +143,12 @@ assignment_statement
 /*assignment unit*/
 assignment
 : IDENTIFIER ASG expression { printf("assignment -> IDENTIFIER ASG expression\n"); }
+| IDENTIFIER INC
+| IDENTIFIER DEC
+| INC IDENTIFIER
+| DEC IDENTIFIER
 ;
-
+/*
 expression
  : expression ADD term { printf("expression -> expression ADD term\n"); }
  | expression SUB term { printf("expression -> expression SUB term\n"); }
@@ -161,7 +176,43 @@ factor
  | BOOL { printf("factor -> BOOL\n"); }
  | IDENTIFIER { printf("factor -> IDENTIFIER\n");}
 ;
+*/
+expression
+ : factor
+ | OP expression CP { printf("factor -> OP expression CP\n"); }
+ | expression ADD expression
+ | expression SUB expression
+ | expression MUL expression
+ | expression DIV expression
+ | expression MOD expression
+ | expression GT expression
+ | expression LT expression
+ | expression GE expression
+ | expression LE expression
+ | expression NE expression
+ | expression EQ expression
+ | expression OR expression
+ | NOT expression
+ | ADD expression
+ | SUB expression
+ ;
 
+factor
+ : NUMBER { printf("factor -> NUMBER\n"); }
+ | INT { printf("factor -> INT\n"); }
+ | DOUBLE { printf("factor -> DOUBLE\n"); }
+ | BOOL { printf("factor -> BOOL\n"); }
+ | IDENTIFIER { printf("factor -> IDENTIFIER\n");}
+ | array_item { printf("factor -> array\n");}
+;
+
+array_def
+ : IDENTIFIER OSQ CSQ { printf("array -> ID[]\n");}
+;
+
+array_item
+ : IDENTIFIER OSQ INT CSQ {printf("array -> ID[n]\n");}
+;
 %%
 
 int main(int argc, char **argv)

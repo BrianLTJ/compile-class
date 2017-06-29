@@ -13,6 +13,10 @@
 "/" { return DIV; }
 "%" { return MOD; }
 
+"!" { return NOT;}
+"||" {return OR;}
+"&&" {return AND;}
+
 ">" { return GT;}
 "<" { return LT;}
 ">=" { return GE;}
@@ -20,7 +24,8 @@
 "!=" { return NE;}
 "==" { return EQ;}
 
-
+"++" { return INC;}
+"--" { return DEC;}
 
 "=" { return ASG; }
 "(" { return OP; }
@@ -35,7 +40,7 @@
 
 
 "/*".+"*/" {/* comment */}
-"//".+[^\n] {/* comment */ line++; printf("L%d \n",line);}
+"//".+[^\n] {/* comment */ line++;/* printf("L%d \n",line);*/}
 
 "int"|"bool"|"char"|"double"|"void" { return VARTYPE;}
 "else if" {return ELSEIF;}

@@ -12,7 +12,7 @@ int main(){
   double e = 369 % 578;
   e=1.25;
   char h = 'c';
-  char m = '\'';
+  char m = 'b';
   if(ce != false){
     /*Do something*/
     a=b-d;
