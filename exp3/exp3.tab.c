@@ -469,14 +469,14 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    31,    31,    32,    36,    37,    38,    42,    43,    44,
-      48,    49,    54,    55,    56,    60,    64,    65,    66,    67,
-      68,    69,    70,    71,    75,    76,    80,    84,    85,    89,
-      90,    91,    94,    95,    98,    99,   103,   107,   111,   112,
-     116,   117,   122,   127,   128,   133,   134,   135,   136,   140,
-     145,   146,   147,   148,   149,   181,   182,   183,   184,   185,
-     186,   187,   188,   189,   190,   191,   192,   193,   194,   195,
-     196,   197,   201,   202,   203,   204,   205,   206,   210,   214
+       0,    32,    32,    33,    38,    39,    40,    45,    46,    47,
+      52,    53,    59,    60,    61,    66,    71,    72,    73,    74,
+      75,    76,    77,    78,    83,    84,    89,    94,    95,    99,
+     100,   101,   105,   106,   110,   111,   116,   121,   126,   127,
+     132,   133,   138,   143,   144,   149,   150,   151,   152,   156,
+     161,   162,   163,   164,   165,   199,   200,   201,   202,   203,
+     204,   205,   206,   207,   208,   209,   210,   211,   212,   213,
+     214,   215,   220,   221,   222,   223,   224,   225,   230,   235
 };
 #endif
 
@@ -1379,331 +1379,331 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 31 "exp3.y" /* yacc.c:1646  */
+#line 32 "exp3.y" /* yacc.c:1646  */
     { printf("source -> source source_statement\n");}
 #line 1385 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 32 "exp3.y" /* yacc.c:1646  */
+#line 33 "exp3.y" /* yacc.c:1646  */
     { printf("source -> source_statement\n");}
 #line 1391 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 36 "exp3.y" /* yacc.c:1646  */
+#line 38 "exp3.y" /* yacc.c:1646  */
     { printf("source_statement -> func_def\n");}
 #line 1397 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 37 "exp3.y" /* yacc.c:1646  */
+#line 39 "exp3.y" /* yacc.c:1646  */
     { printf("source_statement -> INCLUDE INCLUDEFILE\n");}
 #line 1403 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 38 "exp3.y" /* yacc.c:1646  */
+#line 40 "exp3.y" /* yacc.c:1646  */
     { printf("source_statement -> var_def\n");}
 #line 1409 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 42 "exp3.y" /* yacc.c:1646  */
+#line 45 "exp3.y" /* yacc.c:1646  */
     { printf("[BLOCK]block -> { seq }\n"); }
 #line 1415 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 43 "exp3.y" /* yacc.c:1646  */
+#line 46 "exp3.y" /* yacc.c:1646  */
     { printf("[BLOCK]block -> statementseq\n"); }
 #line 1421 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 44 "exp3.y" /* yacc.c:1646  */
+#line 47 "exp3.y" /* yacc.c:1646  */
     { printf("block -> SEMICO\n");}
 #line 1427 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 48 "exp3.y" /* yacc.c:1646  */
+#line 52 "exp3.y" /* yacc.c:1646  */
     { printf("[STATEMENT SEQ]statementseq -> statementseq statement\n"); }
 #line 1433 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 49 "exp3.y" /* yacc.c:1646  */
+#line 53 "exp3.y" /* yacc.c:1646  */
     { printf("[STATEMENT SEQ]statementseq -> statement\n"); }
 #line 1439 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 54 "exp3.y" /* yacc.c:1646  */
+#line 59 "exp3.y" /* yacc.c:1646  */
     { printf("[STATEMENT]statement -> var_def_statement\n");}
 #line 1445 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 55 "exp3.y" /* yacc.c:1646  */
+#line 60 "exp3.y" /* yacc.c:1646  */
     { printf("[STATEMENT]statement -> control\n");}
 #line 1451 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 56 "exp3.y" /* yacc.c:1646  */
+#line 61 "exp3.y" /* yacc.c:1646  */
     { printf("[STATEMENT]statement -> assignment\n"); }
 #line 1457 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 60 "exp3.y" /* yacc.c:1646  */
+#line 66 "exp3.y" /* yacc.c:1646  */
     { printf("func_def -> VARTYPE IDENTIFIER () <block>"); }
 #line 1463 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 64 "exp3.y" /* yacc.c:1646  */
+#line 71 "exp3.y" /* yacc.c:1646  */
     { printf("control->if_block\n"); }
 #line 1469 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 65 "exp3.y" /* yacc.c:1646  */
+#line 72 "exp3.y" /* yacc.c:1646  */
     {printf("control -> for_block\n"); }
 #line 1475 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 66 "exp3.y" /* yacc.c:1646  */
+#line 73 "exp3.y" /* yacc.c:1646  */
     { printf("control -> while_block\n"); }
 #line 1481 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 67 "exp3.y" /* yacc.c:1646  */
+#line 74 "exp3.y" /* yacc.c:1646  */
     { printf("control -> switch_block\n"); }
 #line 1487 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 68 "exp3.y" /* yacc.c:1646  */
+#line 75 "exp3.y" /* yacc.c:1646  */
     {printf("continue\n");}
 #line 1493 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 69 "exp3.y" /* yacc.c:1646  */
+#line 76 "exp3.y" /* yacc.c:1646  */
     {printf("break\n");}
 #line 1499 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 70 "exp3.y" /* yacc.c:1646  */
+#line 77 "exp3.y" /* yacc.c:1646  */
     {printf("return ;\n");}
 #line 1505 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 71 "exp3.y" /* yacc.c:1646  */
+#line 78 "exp3.y" /* yacc.c:1646  */
     {printf("return exp;\n");}
 #line 1511 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 75 "exp3.y" /* yacc.c:1646  */
+#line 83 "exp3.y" /* yacc.c:1646  */
     { printf("if_block -> if_ifheader ELSE block\n"); }
 #line 1517 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 76 "exp3.y" /* yacc.c:1646  */
+#line 84 "exp3.y" /* yacc.c:1646  */
     { printf("if_block -> if_ifheader\n"); }
 #line 1523 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 80 "exp3.y" /* yacc.c:1646  */
+#line 89 "exp3.y" /* yacc.c:1646  */
     {printf("if_ifheader -> if () block\n");}
 #line 1529 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 84 "exp3.y" /* yacc.c:1646  */
+#line 94 "exp3.y" /* yacc.c:1646  */
     {printf("while_block -> while(expression) block\n");}
 #line 1535 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 85 "exp3.y" /* yacc.c:1646  */
+#line 95 "exp3.y" /* yacc.c:1646  */
     {printf("while_block -> while() block\n");}
 #line 1541 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 90 "exp3.y" /* yacc.c:1646  */
+#line 100 "exp3.y" /* yacc.c:1646  */
     {printf("for_init -> VARTYPE IDENTIFIER = expression\n");}
 #line 1547 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 91 "exp3.y" /* yacc.c:1646  */
+#line 101 "exp3.y" /* yacc.c:1646  */
     {printf("for_init -> assignment\n");}
 #line 1553 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 95 "exp3.y" /* yacc.c:1646  */
+#line 106 "exp3.y" /* yacc.c:1646  */
     {printf("for_condition -> expression\n");}
 #line 1559 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 99 "exp3.y" /* yacc.c:1646  */
+#line 111 "exp3.y" /* yacc.c:1646  */
     {printf("for_after -> statement\n");}
 #line 1565 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 103 "exp3.y" /* yacc.c:1646  */
+#line 116 "exp3.y" /* yacc.c:1646  */
     {printf("for_block -> for(e1;e2;e3) block\n");}
 #line 1571 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 107 "exp3.y" /* yacc.c:1646  */
+#line 121 "exp3.y" /* yacc.c:1646  */
     {printf("switch_block -> switch(exp){case}\n");}
 #line 1577 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 111 "exp3.y" /* yacc.c:1646  */
+#line 126 "exp3.y" /* yacc.c:1646  */
     {printf("caseseq -> caseseq casestat\n");}
 #line 1583 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 112 "exp3.y" /* yacc.c:1646  */
+#line 127 "exp3.y" /* yacc.c:1646  */
     {printf("caseseq -> casestat\n");}
 #line 1589 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 116 "exp3.y" /* yacc.c:1646  */
+#line 132 "exp3.y" /* yacc.c:1646  */
     {printf("casestat -> CASE expression COLON statementseq\n");}
 #line 1595 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 117 "exp3.y" /* yacc.c:1646  */
+#line 133 "exp3.y" /* yacc.c:1646  */
     {printf("casestat -> DEFAULT COLON statementseq\n");}
 #line 1601 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 122 "exp3.y" /* yacc.c:1646  */
+#line 138 "exp3.y" /* yacc.c:1646  */
     { printf("var_def -> VARTYPE var_def_idseq ;\n"); }
 #line 1607 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 127 "exp3.y" /* yacc.c:1646  */
+#line 143 "exp3.y" /* yacc.c:1646  */
     { printf("var_def_idseq -> var_def_id_idseq var_def\n"); }
 #line 1613 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 128 "exp3.y" /* yacc.c:1646  */
+#line 144 "exp3.y" /* yacc.c:1646  */
     { printf("var_def_idseq -> var_def\n"); }
 #line 1619 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 133 "exp3.y" /* yacc.c:1646  */
+#line 149 "exp3.y" /* yacc.c:1646  */
     { printf("var_def -> assignment\n"); }
 #line 1625 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 134 "exp3.y" /* yacc.c:1646  */
+#line 150 "exp3.y" /* yacc.c:1646  */
     { printf("var_def -> IDENTIFIER\n");}
 #line 1631 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 135 "exp3.y" /* yacc.c:1646  */
+#line 151 "exp3.y" /* yacc.c:1646  */
     { printf("var_def -> array_def\n");}
 #line 1637 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 136 "exp3.y" /* yacc.c:1646  */
+#line 152 "exp3.y" /* yacc.c:1646  */
     {printf("var_def -> array_item\n");}
 #line 1643 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 140 "exp3.y" /* yacc.c:1646  */
+#line 156 "exp3.y" /* yacc.c:1646  */
     { printf("assignment_statement -> assignment ;\n"); }
 #line 1649 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 145 "exp3.y" /* yacc.c:1646  */
+#line 161 "exp3.y" /* yacc.c:1646  */
     { printf("assignment -> IDENTIFIER ASG expression\n"); }
 #line 1655 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 182 "exp3.y" /* yacc.c:1646  */
+#line 200 "exp3.y" /* yacc.c:1646  */
     { printf("factor -> OP expression CP\n"); }
 #line 1661 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 201 "exp3.y" /* yacc.c:1646  */
+#line 220 "exp3.y" /* yacc.c:1646  */
     { printf("factor -> NUMBER\n"); }
 #line 1667 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 202 "exp3.y" /* yacc.c:1646  */
+#line 221 "exp3.y" /* yacc.c:1646  */
     { printf("factor -> INT\n"); }
 #line 1673 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 203 "exp3.y" /* yacc.c:1646  */
+#line 222 "exp3.y" /* yacc.c:1646  */
     { printf("factor -> DOUBLE\n"); }
 #line 1679 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 204 "exp3.y" /* yacc.c:1646  */
+#line 223 "exp3.y" /* yacc.c:1646  */
     { printf("factor -> BOOL\n"); }
 #line 1685 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 205 "exp3.y" /* yacc.c:1646  */
+#line 224 "exp3.y" /* yacc.c:1646  */
     { printf("factor -> IDENTIFIER\n");}
 #line 1691 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 206 "exp3.y" /* yacc.c:1646  */
+#line 225 "exp3.y" /* yacc.c:1646  */
     { printf("factor -> array\n");}
 #line 1697 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 210 "exp3.y" /* yacc.c:1646  */
+#line 230 "exp3.y" /* yacc.c:1646  */
     { printf("array -> ID[]\n");}
 #line 1703 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 214 "exp3.y" /* yacc.c:1646  */
+#line 235 "exp3.y" /* yacc.c:1646  */
     {printf("array -> ID[n]\n");}
 #line 1709 "exp3.tab.c" /* yacc.c:1646  */
     break;
@@ -1937,7 +1937,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 216 "exp3.y" /* yacc.c:1906  */
+#line 237 "exp3.y" /* yacc.c:1906  */
 
 
 int main(int argc, char **argv)

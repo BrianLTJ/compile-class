@@ -27,28 +27,33 @@
 %left OP CP OSQ CSQ INC DEC
 
 %%
+/* Source Code Top Node */
 source
 : source source_statement { printf("source -> source source_statement\n");}
 | source_statement { printf("source -> source_statement\n");}
 ;
 
+/* Source statement */
 source_statement
 : func_def { printf("source_statement -> func_def\n");}
 | INCLUDE INCLUDEFILE { printf("source_statement -> INCLUDE INCLUDEFILE\n");}
 | var_def_statement { printf("source_statement -> var_def\n");}
 ;
 
+/* Code block */
 block
  : OC statementseq CC { printf("[BLOCK]block -> { seq }\n"); }
  | statementseq { printf("[BLOCK]block -> statementseq\n"); }
  | SEMICO { printf("block -> SEMICO\n");}
 ;
 
+/* Statement Sequence */
 statementseq
  : statementseq statement { printf("[STATEMENT SEQ]statementseq -> statementseq statement\n"); }
  | statement { printf("[STATEMENT SEQ]statementseq -> statement\n"); }
  ;
 
+/* Statement */
 /* All statements should be code block or ended with SEMICO */
 statement
 : var_def_statement { printf("[STATEMENT]statement -> var_def_statement\n");}
@@ -56,10 +61,12 @@ statement
 | assignment_statement { printf("[STATEMENT]statement -> assignment\n"); }
 ;
 
+/* Function Definition */
 func_def
 : VARTYPE IDENTIFIER OP CP block { printf("func_def -> VARTYPE IDENTIFIER () <block>"); }
 ;
 
+/* Control Statements */
 control
 : if_block { printf("control->if_block\n"); }
 | for_block {printf("control -> for_block\n"); }
@@ -71,47 +78,56 @@ control
 | RETURN expression SEMICO {printf("return exp;\n");}
 ;
 
+/* Control - IF */
 if_block
 : if_ifheader ELSE block { printf("if_block -> if_ifheader ELSE block\n"); }
 | if_ifheader { printf("if_block -> if_ifheader\n"); }
 ;
 
+/* Control - IF - header*/
 if_ifheader
 : IF OP expression CP block  {printf("if_ifheader -> if () block\n");}
 ;
 
+/* Control - While*/
 while_block
 : WHILE OP expression CP block {printf("while_block -> while(expression) block\n");}
 | WHILE OP CP block {printf("while_block -> while() block\n");}
 ;
 
-
+/* Control - For - var initialize */
 for_init: /*NONE*/
 | VARTYPE assignment {printf("for_init -> VARTYPE IDENTIFIER = expression\n");}
 | assignment {printf("for_init -> assignment\n");}
 ;
 
+/* Control - For - loop condition */
 for_condition: /*NONE*/
 | expression {printf("for_condition -> expression\n");}
 ;
 
+/* Control - For - Do after*/
 for_after: /*NONE*/
 | assignment {printf("for_after -> statement\n");}
 ;
 
+/* Control - For statement*/
 for_block
 : FOR OP for_init SEMICO for_condition SEMICO for_after CP block {printf("for_block -> for(e1;e2;e3) block\n");}
 ;
 
+/* Control - Switch block */
 switch_block
 : SWITCH OP expression CP OC caseseq CC {printf("switch_block -> switch(exp){case}\n");}
 ;
 
+/* case block sequence*/
 caseseq
 : caseseq casestat {printf("caseseq -> caseseq casestat\n");}
 | casestat {printf("caseseq -> casestat\n");}
 ;
 
+/* case block*/
 casestat
 : CASE expression COLON statementseq {printf("casestat -> CASE expression COLON statementseq\n");}
 | DEFAULT COLON statementseq {printf("casestat -> DEFAULT COLON statementseq\n");}
@@ -177,6 +193,8 @@ factor
  | IDENTIFIER { printf("factor -> IDENTIFIER\n");}
 ;
 */
+
+/* expression */
 expression
  : factor
  | OP expression CP { printf("factor -> OP expression CP\n"); }
@@ -197,6 +215,7 @@ expression
  | SUB expression
  ;
 
+/* Factor */
 factor
  : NUMBER { printf("factor -> NUMBER\n"); }
  | INT { printf("factor -> INT\n"); }
@@ -206,10 +225,12 @@ factor
  | array_item { printf("factor -> array\n");}
 ;
 
+/* Array definition*/
 array_def
  : IDENTIFIER OSQ CSQ { printf("array -> ID[]\n");}
 ;
 
+/*Array item*/
 array_item
  : IDENTIFIER OSQ INT CSQ {printf("array -> ID[n]\n");}
 ;
