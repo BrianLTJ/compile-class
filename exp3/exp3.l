@@ -1,8 +1,9 @@
 /* EX3 */
 %option noyywrap
 %{
-    #include <stdio.h>
     #include "exp3.tab.c"
+
+
 %}
 
 %%
@@ -11,6 +12,16 @@
 "*" { return MUL; }
 "/" { return DIV; }
 "%" { return MOD; }
+
+">" { return GT;}
+"<" { return LT;}
+">=" { return GE;}
+"<=" { return LE;}
+"!=" { return NE;}
+"==" { return EQ;}
+
+
+
 "=" { return ASG; }
 "(" { return OP; }
 ")" { return CP; }
@@ -26,10 +37,22 @@
 "/*".+"*/" {/* comment */}
 "//".+[^\n] {/* comment */ line++; printf("L%d \n",line);}
 
-"int"|"bool"|"char"|"double"|"void" { printf("\nLEX: VARTYPE\n"); return VARTYPE;}
+"int"|"bool"|"char"|"double"|"void" { return VARTYPE;}
 "else if" {return ELSEIF;}
 "if" {return IF;}
 "else" {return ELSE;}
+
+"switch" {return SWITCH;}
+"case" {return CASE;}
+
+"default" {return DEFAULT;}
+
+"while" {return WHILE;}
+"for" {return FOR;}
+
+"continue" {return CONTINUE;}
+"return" {return RETURN;}
+"break" {printf("*GET BREAK*"); return BREAK;}
 
 "#include" { return INCLUDE; }
 "<"[^\n]+">" {return INCLUDEFILE;}

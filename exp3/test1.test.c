@@ -25,5 +25,10 @@ int main(){
         e=25.5496;
     }
   }
+
+  for(a=0;a<2;a++){
+    int ay=1;
+    ay=9%5;
+  }
   return 0;
 }
