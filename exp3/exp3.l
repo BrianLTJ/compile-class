@@ -2,8 +2,6 @@
 %option noyywrap
 %{
     #include "exp3.tab.c"
-
-
 %}
 
 %%
@@ -40,7 +38,7 @@
 
 
 "/*".+"*/" {/* comment */}
-"//".+[^\n] {/* comment */ line++;/* printf("L%d \n",line);*/}
+"//"[^\n]+ {/* comment */}
 
 "int"|"bool"|"char"|"double"|"void" { return VARTYPE;}
 "else if" {return ELSEIF;}
@@ -52,26 +50,28 @@
 
 "default" {return DEFAULT;}
 
-"while" {return WHILE;}
-"for" {return FOR;}
+"while" {start_line=line;return WHILE; start_line=line;}
+"for" {start_line=line;return FOR;}
 
 "continue" {return CONTINUE;}
 "return" {return RETURN;}
-"break" {printf("*GET BREAK*"); return BREAK;}
-
-"#include" { return INCLUDE; }
-"<"[^\n]+">" {return INCLUDEFILE;}
-"\""[^\n]+"\"" {return INCLUDEFILE;}
-
-[0-9]+ { return INT; }
-
-[^\\]\'(\\\'|[^\'])[^\\]\' {return CHAR;}
-[0-9]+\.[0-9]+ { return DOUBLE;}
+"break" { return BREAK;}
 
 "true" { return BOOL; }
 "false" { return BOOL; }
 
+"#include" { return INCLUDE; }
+"<"[^\n]+">" {return INCLUDEFILE;}
+
+[0-9]+ { return INT; }
+
+\"[^\n\"]*\" {return STRING;}
+[^\\]\'(\\\'|[^\'])[^\\]\' {return CHAR;}
+
+[0-9]+\.[0-9]+ { return DOUBLE;}
+
 [\_a-zA-Z]{1}[\_0-9a-zA-Z]* { return IDENTIFIER; }
+
 \n { line++;}
 
 [ \t] { /*blank*/ }

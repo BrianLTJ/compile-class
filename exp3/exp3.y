@@ -2,11 +2,12 @@
 %{
     #include <stdio.h>
     int line=1;
+    int start_line=1;
     int ch=1;
 %}
 %error-verbose
-%token NUMBER INT DOUBLE BOOL CHAR ARRAY
-%token ADD SUB MUL DIV  MOD NOT OR GT LT GE LE NE EQ AND OR INC DEC
+%token NUMBER INT DOUBLE BOOL CHAR ARRAY STRING
+%token ADD SUB MUL DIV  MOD NOT OR GT LT GE LE NE EQ AND INC DEC
 %token ASG OP CP OSQ CSQ OC CC
 %token COMMA SEMICO COLON
 %token IDENTIFIER VARTYPE
@@ -37,6 +38,7 @@ source
 source_statement
 : func_def { printf("source_statement -> func_def\n");}
 | INCLUDE INCLUDEFILE { printf("source_statement -> INCLUDE INCLUDEFILE\n");}
+| INCLUDE STRING { printf("source_statement -> INCLUDE STRING\n");}
 | var_def_statement { printf("source_statement -> var_def\n");}
 ;
 
@@ -59,11 +61,36 @@ statement
 : var_def_statement { printf("[STATEMENT]statement -> var_def_statement\n");}
 | control { printf("[STATEMENT]statement -> control\n");}
 | assignment_statement { printf("[STATEMENT]statement -> assignment\n"); }
+| func_call {printf("[STATEMENT]statement -> func_call\n");}
+| func_def {printf("[STATEMENT]statement -> func_def\n");}
 ;
 
 /* Function Definition */
 func_def
-: VARTYPE IDENTIFIER OP CP block { printf("func_def -> VARTYPE IDENTIFIER () <block>"); }
+: VARTYPE IDENTIFIER OP CP block { printf("[Func %s DEF]func_def -> VARTYPE IDENTIFIER () <block>\n",$1); }
+| VARTYPE IDENTIFIER OP func_def_args_seq CP block { printf("[Func %s DEF]func_def -> VARTYPE IDENTIFIER (args) <block>\n",$1); }
+;
+
+func_def_args_seq
+: func_def_args_seq COMMA func_def_args
+| func_def_args
+;
+
+func_def_args
+: VARTYPE IDENTIFIER
+| VARTYPE IDENTIFIER ASG expression
+;
+
+/* Function call */
+func_call
+: IDENTIFIER OP CP SEMICO { printf("[FUNC CALL]func_call -> IDENTIFIER ();\n");}
+| IDENTIFIER OP func_call_args_seq CP SEMICO { printf("[FUNC CALL]func_call -> IDENTIFIER ();\n");}
+;
+
+/* Function call args*/
+func_call_args_seq
+: func_call_args_seq COMMA expression
+| expression
 ;
 
 /* Control Statements */
@@ -80,8 +107,8 @@ control
 
 /* Control - IF */
 if_block
-: if_ifheader ELSE block { printf("if_block -> if_ifheader ELSE block\n"); }
-| if_ifheader { printf("if_block -> if_ifheader\n"); }
+: if_ifheader ELSE block { printf("[IF]if_block -> if_ifheader ELSE block\n"); }
+| if_ifheader { printf("[IF]if_block -> if_ifheader\n"); }
 ;
 
 /* Control - IF - header*/
@@ -91,8 +118,8 @@ if_ifheader
 
 /* Control - While*/
 while_block
-: WHILE OP expression CP block {printf("while_block -> while(expression) block\n");}
-| WHILE OP CP block {printf("while_block -> while() block\n");}
+: WHILE OP expression CP block {printf("[WHILE]while_block -> while(expression) block\n");}
+| WHILE OP CP block {printf("[WHILE]while_block -> while() block\n");}
 ;
 
 /* Control - For - var initialize */
@@ -113,12 +140,12 @@ for_after: /*NONE*/
 
 /* Control - For statement*/
 for_block
-: FOR OP for_init SEMICO for_condition SEMICO for_after CP block {printf("for_block -> for(e1;e2;e3) block\n");}
+: FOR OP for_init SEMICO for_condition SEMICO for_after CP block {printf("[FOR]for_block -> for(e1;e2;e3) block\n");}
 ;
 
 /* Control - Switch block */
 switch_block
-: SWITCH OP expression CP OC caseseq CC {printf("switch_block -> switch(exp){case}\n");}
+: SWITCH OP expression CP OC caseseq CC {printf("[SWITCH]switch_block -> switch(exp){case}\n");}
 ;
 
 /* case block sequence*/
@@ -164,35 +191,6 @@ assignment
 | INC IDENTIFIER
 | DEC IDENTIFIER
 ;
-/*
-expression
- : expression ADD term { printf("expression -> expression ADD term\n"); }
- | expression SUB term { printf("expression -> expression SUB term\n"); }
- | term { printf("expression -> term\n"); }
-;
-
-term
- : term MUL factor { printf("term -> term MUL factor\n"); }
- | term DIV factor { printf("term -> term DIV factor\n"); }
- | term MOD factor { printf("term -> term MOD factor\n"); }
- | term GT factor { printf("term -> term GT factor\n"); }
- | term LT factor { printf("term -> term LT factor\n"); }
- | term GE factor { printf("term -> term GE factor\n"); }
- | term LE factor { printf("term -> term LE factor\n"); }
- | term NE factor { printf("term -> term NE factor\n"); }
- | term EQ factor { printf("term -> term EQ factor\n"); }
- | factor { printf("term -> factor\n"); }
-;
-
-factor
- : OP expression CP { printf("factor -> OP expression CP\n"); }
- | NUMBER { printf("factor -> NUMBER\n"); }
- | INT { printf("factor -> INT\n"); }
- | DOUBLE { printf("factor -> DOUBLE\n"); }
- | BOOL { printf("factor -> BOOL\n"); }
- | IDENTIFIER { printf("factor -> IDENTIFIER\n");}
-;
-*/
 
 /* expression */
 expression
@@ -222,6 +220,7 @@ factor
  | DOUBLE { printf("factor -> DOUBLE\n"); }
  | BOOL { printf("factor -> BOOL\n"); }
  | IDENTIFIER { printf("factor -> IDENTIFIER\n");}
+ | STRING {printf("factor -> STRING\n");}
  | array_item { printf("factor -> array\n");}
 ;
 
