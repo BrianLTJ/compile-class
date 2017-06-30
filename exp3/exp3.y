@@ -67,8 +67,8 @@ statement
 
 /* Function Definition */
 func_def
-: VARTYPE IDENTIFIER OP CP block { printf("[Func %s DEF]func_def -> VARTYPE IDENTIFIER () <block>\n",$1); }
-| VARTYPE IDENTIFIER OP func_def_args_seq CP block { printf("[Func %s DEF]func_def -> VARTYPE IDENTIFIER (args) <block>\n",$1); }
+: VARTYPE id OP CP block { $$=$2; printf("[Func %s DEF]func_def -> VARTYPE id () <block>\n",$2); }
+| VARTYPE id OP func_def_args_seq CP block { $$=$2; printf("[Func %s DEF]func_def -> VARTYPE id (args) <block>\n",$2); }
 ;
 
 func_def_args_seq
@@ -77,14 +77,14 @@ func_def_args_seq
 ;
 
 func_def_args
-: VARTYPE IDENTIFIER
-| VARTYPE IDENTIFIER ASG expression
+: VARTYPE id
+| VARTYPE id ASG expression
 ;
 
 /* Function call */
 func_call
-: IDENTIFIER OP CP SEMICO { printf("[FUNC CALL]func_call -> IDENTIFIER ();\n");}
-| IDENTIFIER OP func_call_args_seq CP SEMICO { printf("[FUNC CALL]func_call -> IDENTIFIER ();\n");}
+: id OP CP SEMICO { printf("[FUNC %s CALL]func_call -> id ();\n",$1);}
+| id OP func_call_args_seq CP SEMICO { printf("[FUNC %s CALL]func_call -> id ();\n",$1);}
 ;
 
 /* Function call args*/
@@ -124,7 +124,7 @@ while_block
 
 /* Control - For - var initialize */
 for_init: /*NONE*/
-| VARTYPE assignment {printf("for_init -> VARTYPE IDENTIFIER = expression\n");}
+| VARTYPE assignment {printf("for_init -> VARTYPE id = expression\n");}
 | assignment {printf("for_init -> assignment\n");}
 ;
 
@@ -160,23 +160,23 @@ casestat
 | DEFAULT COLON statementseq {printf("casestat -> DEFAULT COLON statementseq\n");}
 ;
 
-/*Variable definition statement, with ; at the end of statement*/
+/* Variable definition statement, with ; at the end of statement */
 var_def_statement
- : VARTYPE var_def_idseq SEMICO { printf("var_def -> VARTYPE var_def_idseq ;\n"); }
+ : VARTYPE var_def_idseq SEMICO { printf("[VARDEF %s ]var_def -> VARTYPE var_def_idseq ;\n",$2); }
 ;
 
-/*Variable definition sequence*/
+/* Variable definition sequence */
 var_def_idseq
-: var_def_idseq COMMA var_def { printf("var_def_idseq -> var_def_id_idseq var_def\n"); }
-| var_def { printf("var_def_idseq -> var_def\n"); }
+: var_def_idseq COMMA var_def { $$=strcat($$,","); $$=strcat($$,$3); printf("var_def_idseq -> var_def_id_idseq var_def\n"); }
+| var_def { $$=$1; printf("var_def_idseq -> var_def\n"); }
 ;
 
-/*Variable definition unit, like a=<exp> or a*/
+/* Variable definition unit, like a=<exp> or a */
 var_def
- : assignment { printf("var_def -> assignment\n"); }
- | IDENTIFIER { printf("var_def -> IDENTIFIER\n");}
- | array_def { printf("var_def -> array_def\n");}
- | array_item {printf("var_def -> array_item\n");}
+ : assignment { $$ = $1; printf("var_def -> assignment\n"); }
+ | id { $$ = $1; printf("var_def -> id\n");}
+ | array_def { $$ = $1; printf("var_def -> array_def\n");}
+ | array_item {$$ = $1; printf("var_def -> array_item\n");}
 ;
 /*assignment statement*/
 assignment_statement
@@ -185,17 +185,17 @@ assignment_statement
 
 /*assignment unit*/
 assignment
-: IDENTIFIER ASG expression { printf("assignment -> IDENTIFIER ASG expression\n"); }
-| IDENTIFIER INC
-| IDENTIFIER DEC
-| INC IDENTIFIER
-| DEC IDENTIFIER
+: id ASG expression { $$ = $1; printf("assignment -> id ASG expression\n"); }
+| id INC
+| id DEC
+| INC id
+| DEC id
 ;
 
 /* expression */
 expression
  : factor
- | OP expression CP { printf("factor -> OP expression CP\n"); }
+ | OP expression CP
  | expression ADD expression
  | expression SUB expression
  | expression MUL expression
@@ -219,19 +219,22 @@ factor
  | INT { printf("factor -> INT\n"); }
  | DOUBLE { printf("factor -> DOUBLE\n"); }
  | BOOL { printf("factor -> BOOL\n"); }
- | IDENTIFIER { printf("factor -> IDENTIFIER\n");}
+ | id {$$=$1; printf("factor -> id\n");}
  | STRING {printf("factor -> STRING\n");}
  | array_item { printf("factor -> array\n");}
 ;
 
 /* Array definition*/
 array_def
- : IDENTIFIER OSQ CSQ { printf("array -> ID[]\n");}
+ : id OSQ CSQ {$$ = $1;  printf("array -> ID[]\n");}
 ;
 
 /*Array item*/
 array_item
- : IDENTIFIER OSQ INT CSQ {printf("array -> ID[n]\n");}
+ : id OSQ INT CSQ {$$ = $1; printf("array -> ID[n]\n");}
+;
+
+id: IDENTIFIER{ $$ = strdup(yytext); }
 ;
 %%
 
