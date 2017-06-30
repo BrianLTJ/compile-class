@@ -1480,103 +1480,103 @@ yyreduce:
 
   case 13:
 #line 61 "exp3.y" /* yacc.c:1646  */
-    { printf("[STATEMENT]statement -> var_def_statement\n");}
+    { printf("[STATEMENT var_def_statement ]statement -> var_def_statement\n");}
 #line 1485 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
 #line 62 "exp3.y" /* yacc.c:1646  */
-    { printf("[STATEMENT]statement -> control\n");}
+    { printf("[STATEMENT control %s]statement -> control\n",(yyvsp[0]));}
 #line 1491 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
 #line 63 "exp3.y" /* yacc.c:1646  */
-    { printf("[STATEMENT]statement -> assignment\n"); }
+    { printf("[STATEMENT assignment]statement -> assignment_statement\n"); }
 #line 1497 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
 #line 64 "exp3.y" /* yacc.c:1646  */
-    {printf("[STATEMENT]statement -> func_call\n");}
+    {printf("[STATEMENT func_call]statement -> func_call\n");}
 #line 1503 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
 #line 65 "exp3.y" /* yacc.c:1646  */
-    {printf("[STATEMENT]statement -> func_def\n");}
+    {printf("[STATEMENT func_def]statement -> func_def\n");}
 #line 1509 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
 #line 70 "exp3.y" /* yacc.c:1646  */
-    { (yyval)=(yyvsp[-3]); printf("[Func %s DEF]func_def -> VARTYPE id () <block>\n",(yyvsp[-3])); }
+    { (yyval)=(yyvsp[-3]); printf("[FUNC %s DEF]func_def -> VARTYPE id () <block>\n",(yyvsp[-3])); }
 #line 1515 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 71 "exp3.y" /* yacc.c:1646  */
-    { (yyval)=(yyvsp[-4]); printf("[Func %s DEF]func_def -> VARTYPE id (args) <block>\n",(yyvsp[-4])); }
+    { (yyval)=(yyvsp[-4]); printf("[FUNC %s DEF]func_def -> VARTYPE id (args) <block>\n",(yyvsp[-4])); }
 #line 1521 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
 #line 86 "exp3.y" /* yacc.c:1646  */
-    { printf("[FUNC %s CALL]func_call -> id ();\n",(yyvsp[-3]));}
+    { printf("[FUNC %s CALLED]func_call -> id ();\n",(yyvsp[-3]));}
 #line 1527 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
 #line 87 "exp3.y" /* yacc.c:1646  */
-    { printf("[FUNC %s CALL]func_call -> id ();\n",(yyvsp[-4]));}
+    { printf("[FUNC %s CALLED]func_call -> id ();\n",(yyvsp[-4]));}
 #line 1533 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
 #line 98 "exp3.y" /* yacc.c:1646  */
-    { printf("control->if_block\n"); }
+    { (yyval)="if"; printf("control->if_block\n"); }
 #line 1539 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
 #line 99 "exp3.y" /* yacc.c:1646  */
-    {printf("control -> for_block\n"); }
+    { (yyval)="for"; printf("control -> for_block\n"); }
 #line 1545 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
 #line 100 "exp3.y" /* yacc.c:1646  */
-    { printf("control -> while_block\n"); }
+    { (yyval)="while"; printf("control -> while_block\n"); }
 #line 1551 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
 #line 101 "exp3.y" /* yacc.c:1646  */
-    { printf("control -> switch_block\n"); }
+    { (yyval)="switch";printf("control -> switch_block\n"); }
 #line 1557 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
 #line 102 "exp3.y" /* yacc.c:1646  */
-    {printf("continue\n");}
+    { (yyval)="continue"; printf("continue\n");}
 #line 1563 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
 #line 103 "exp3.y" /* yacc.c:1646  */
-    {printf("break\n");}
+    {(yyval)="break";}
 #line 1569 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
 #line 104 "exp3.y" /* yacc.c:1646  */
-    {printf("return ;\n");}
+    {(yyval)="return";}
 #line 1575 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
 #line 105 "exp3.y" /* yacc.c:1646  */
-    {printf("return exp;\n");}
+    {(yyval)="return";}
 #line 1581 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1724,68 +1724,26 @@ yyreduce:
 #line 1725 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
-  case 84:
-#line 218 "exp3.y" /* yacc.c:1646  */
-    { printf("factor -> NUMBER\n"); }
-#line 1731 "exp3.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 85:
-#line 219 "exp3.y" /* yacc.c:1646  */
-    { printf("factor -> INT\n"); }
-#line 1737 "exp3.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 86:
-#line 220 "exp3.y" /* yacc.c:1646  */
-    { printf("factor -> DOUBLE\n"); }
-#line 1743 "exp3.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 87:
-#line 221 "exp3.y" /* yacc.c:1646  */
-    { printf("factor -> BOOL\n"); }
-#line 1749 "exp3.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 88:
-#line 222 "exp3.y" /* yacc.c:1646  */
-    {(yyval)=(yyvsp[0]); printf("factor -> id\n");}
-#line 1755 "exp3.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 89:
-#line 223 "exp3.y" /* yacc.c:1646  */
-    {printf("factor -> STRING\n");}
-#line 1761 "exp3.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 90:
-#line 224 "exp3.y" /* yacc.c:1646  */
-    { printf("factor -> array\n");}
-#line 1767 "exp3.tab.c" /* yacc.c:1646  */
-    break;
-
   case 91:
 #line 229 "exp3.y" /* yacc.c:1646  */
-    {(yyval) = (yyvsp[-2]);  printf("array -> ID[]\n");}
-#line 1773 "exp3.tab.c" /* yacc.c:1646  */
+    {(yyval) = strcat((yyvsp[-2]),"[]");  printf("array -> ID[]\n");}
+#line 1731 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 92:
 #line 234 "exp3.y" /* yacc.c:1646  */
-    {(yyval) = (yyvsp[-3]); printf("array -> ID[n]\n");}
-#line 1779 "exp3.tab.c" /* yacc.c:1646  */
+    {(yyval) = strcat((yyvsp[-3]),"[]"); printf("array -> ID[n]\n");}
+#line 1737 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
   case 93:
 #line 237 "exp3.y" /* yacc.c:1646  */
     { (yyval) = strdup(yytext); }
-#line 1785 "exp3.tab.c" /* yacc.c:1646  */
+#line 1743 "exp3.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1789 "exp3.tab.c" /* yacc.c:1646  */
+#line 1747 "exp3.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

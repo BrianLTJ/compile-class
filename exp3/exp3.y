@@ -58,17 +58,17 @@ statementseq
 /* Statement */
 /* All statements should be code block or ended with SEMICO */
 statement
-: var_def_statement { printf("[STATEMENT]statement -> var_def_statement\n");}
-| control { printf("[STATEMENT]statement -> control\n");}
-| assignment_statement { printf("[STATEMENT]statement -> assignment\n"); }
-| func_call {printf("[STATEMENT]statement -> func_call\n");}
-| func_def {printf("[STATEMENT]statement -> func_def\n");}
+: var_def_statement { printf("[STATEMENT var_def_statement ]statement -> var_def_statement\n");}
+| control { printf("[STATEMENT control %s]statement -> control\n",$1);}
+| assignment_statement { printf("[STATEMENT assignment]statement -> assignment_statement\n"); }
+| func_call {printf("[STATEMENT func_call]statement -> func_call\n");}
+| func_def {printf("[STATEMENT func_def]statement -> func_def\n");}
 ;
 
 /* Function Definition */
 func_def
-: VARTYPE id OP CP block { $$=$2; printf("[Func %s DEF]func_def -> VARTYPE id () <block>\n",$2); }
-| VARTYPE id OP func_def_args_seq CP block { $$=$2; printf("[Func %s DEF]func_def -> VARTYPE id (args) <block>\n",$2); }
+: VARTYPE id OP CP block { $$=$2; printf("[FUNC %s DEF]func_def -> VARTYPE id () <block>\n",$2); }
+| VARTYPE id OP func_def_args_seq CP block { $$=$2; printf("[FUNC %s DEF]func_def -> VARTYPE id (args) <block>\n",$2); }
 ;
 
 func_def_args_seq
@@ -83,8 +83,8 @@ func_def_args
 
 /* Function call */
 func_call
-: id OP CP SEMICO { printf("[FUNC %s CALL]func_call -> id ();\n",$1);}
-| id OP func_call_args_seq CP SEMICO { printf("[FUNC %s CALL]func_call -> id ();\n",$1);}
+: id OP CP SEMICO { printf("[FUNC %s CALLED]func_call -> id ();\n",$1);}
+| id OP func_call_args_seq CP SEMICO { printf("[FUNC %s CALLED]func_call -> id ();\n",$1);}
 ;
 
 /* Function call args*/
@@ -95,14 +95,14 @@ func_call_args_seq
 
 /* Control Statements */
 control
-: if_block { printf("control->if_block\n"); }
-| for_block {printf("control -> for_block\n"); }
-| while_block { printf("control -> while_block\n"); }
-| switch_block { printf("control -> switch_block\n"); }
-| CONTINUE SEMICO {printf("continue\n");}
-| BREAK SEMICO {printf("break\n");}
-| RETURN SEMICO {printf("return ;\n");}
-| RETURN expression SEMICO {printf("return exp;\n");}
+: if_block { $$="if"; printf("control->if_block\n"); }
+| for_block { $$="for"; printf("control -> for_block\n"); }
+| while_block { $$="while"; printf("control -> while_block\n"); }
+| switch_block { $$="switch";printf("control -> switch_block\n"); }
+| CONTINUE SEMICO { $$="continue"; printf("continue\n");}
+| BREAK SEMICO {$$="break";}
+| RETURN SEMICO {$$="return";}
+| RETURN expression SEMICO {$$="return";}
 ;
 
 /* Control - IF */
@@ -215,23 +215,23 @@ expression
 
 /* Factor */
 factor
- : NUMBER { printf("factor -> NUMBER\n"); }
- | INT { printf("factor -> INT\n"); }
- | DOUBLE { printf("factor -> DOUBLE\n"); }
- | BOOL { printf("factor -> BOOL\n"); }
- | id {$$=$1; printf("factor -> id\n");}
- | STRING {printf("factor -> STRING\n");}
- | array_item { printf("factor -> array\n");}
+ : NUMBER /* { printf("factor -> NUMBER\n"); } */
+ | INT /* { printf("factor -> INT\n"); } */
+ | DOUBLE  /*{ printf("factor -> DOUBLE\n"); } */
+ | BOOL  /*{ printf("factor -> BOOL\n"); } */
+ | id  /*{$$=$1; printf("factor -> id\n");} */
+ | STRING  /*{printf("factor -> STRING\n");} */
+ | array_item /* { printf("factor -> array\n");} */
 ;
 
 /* Array definition*/
 array_def
- : id OSQ CSQ {$$ = $1;  printf("array -> ID[]\n");}
+ : id OSQ CSQ {$$ = strcat($1,"[]");  printf("array -> ID[]\n");}
 ;
 
 /*Array item*/
 array_item
- : id OSQ INT CSQ {$$ = $1; printf("array -> ID[n]\n");}
+ : id OSQ INT CSQ {$$ = strcat($1,"[]"); printf("array -> ID[n]\n");}
 ;
 
 id: IDENTIFIER{ $$ = strdup(yytext); }
