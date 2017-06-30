@@ -36,11 +36,11 @@ Github Repository: https://github.com/BrianLTJ/compile-class
 
   编译平台: Ubuntu 16.04 x64
 
-  gcc: 
+  gcc:5.4.0
+ 
+  flex: 2.6.0
 
-  flex: 
-
-  bison: 
+  bison: 3.0.4
 
 
 
